@@ -29,6 +29,7 @@ namespace Capa_Presentacion
         }
         private void btnIngresar_Click(object sender, EventArgs e)
         {
+            usuarios = gestor.CargarUsuarios(rutaUsuarios, encabezadoUsuarios);
             string usuario = txtNombre.Text.Trim();
             string contraseña = txtContraseña.Text.Trim();
 
@@ -41,9 +42,7 @@ namespace Capa_Presentacion
             }
 
             //Busca al usuario de la "Base de datos"
-            Usuario? user = usuarios.FirstOrDefault(u =>
-                            u.Nombre.Equals(usuario, StringComparison.OrdinalIgnoreCase) &&
-                            u.Pass == contraseña);
+            Usuario user = usuarios.FirstOrDefault(u =>u.Nombre.Equals(usuario, StringComparison.OrdinalIgnoreCase) && u.Pass == contraseña);
 
             if (user != null)
             {
@@ -60,13 +59,11 @@ namespace Capa_Presentacion
             txtNombre.Focus();
 
         }
-
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Close();               // Cierra FormLogin
             formAnterior.Show();
         }
-
         private void btnSalir_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -76,7 +73,6 @@ namespace Capa_Presentacion
         {
 
         }
-
         private void txtContraseña_KeyPress(object sender, KeyPressEventArgs e)
         {
 
@@ -87,14 +83,12 @@ namespace Capa_Presentacion
             }
 
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             FormCrearUsuario formCrearUsuario = new FormCrearUsuario(this);
             formCrearUsuario.Show();
             this.Hide();
         }
-
 
         private void label4_Click(object sender, EventArgs e)
         {
@@ -108,7 +102,7 @@ namespace Capa_Presentacion
 
         private void FormLogin_Load(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

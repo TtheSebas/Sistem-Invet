@@ -67,6 +67,7 @@
             cmbCategorias2 = new ComboBox();
             txtCategoriaEditar = new TextBox();
             txtCategoria = new TextBox();
+            btnAddCategoria = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -415,11 +416,22 @@
             txtCategoria.TabIndex = 6;
             txtCategoria.TextChanged += txtCategoria_TextChanged;
             // 
+            // btnAddCategoria
+            // 
+            btnAddCategoria.Location = new Point(196, 157);
+            btnAddCategoria.Name = "btnAddCategoria";
+            btnAddCategoria.Size = new Size(25, 22);
+            btnAddCategoria.TabIndex = 33;
+            btnAddCategoria.Text = "+";
+            btnAddCategoria.UseVisualStyleBackColor = true;
+            btnAddCategoria.Click += btnAddCategoria_Click;
+            // 
             // FormGestionProductos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(995, 598);
+            Controls.Add(btnAddCategoria);
             Controls.Add(cmbCategorias2);
             Controls.Add(cmbCategorias);
             Controls.Add(label9);
@@ -510,5 +522,6 @@
         private ComboBox cmbCategorias2;
         private TextBox txtCategoriaEditar;
         private TextBox txtCategoria;
+        private Button btnAddCategoria;
     }
 }

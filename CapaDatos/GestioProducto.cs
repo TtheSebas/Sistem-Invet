@@ -129,5 +129,39 @@ namespace Datos
             File.Delete(archivo);
             File.Move(tempFile, archivo);
         }
+        //MANEJO DE CATEGORIAS
+        public List<string> CargarCategorias(string ruta = "categorias.csv", string encabezado = "Categorias")
+        {
+            var verificar = new GestionDatos();
+            verificar.VerificarArchivo(ruta, encabezado);
+            List<string> categorias = new List<string>();
+            var lineas = File.ReadAllLines(ruta);
+            for (int i = 1; i < lineas.Length; i++)
+            {
+                var partes = lineas[i].Split(';');
+                if (partes.Length >= 1)
+                {
+                    var categoria = partes[0];
+                    categorias.Add(categoria);
+                }
+            }
+            return categorias;
+        }
+        public void RegistrarCategorias(List<string> categorias, string categoria, string ruta = "categorias.csv")
+        {
+            categorias = CargarCategorias();
+            try
+            {
+                using (StreamWriter datos = File.AppendText(ruta))
+                {
+                    categorias.Add(categoria);
+                    datos.WriteLine($"{categoria}");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al leer el archivo" + ex.Message);
+            }
+        }
     }
 }

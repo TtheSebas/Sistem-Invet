@@ -6,11 +6,9 @@ namespace Capa_Presentacion
     public partial class FormGestionProductos : Form
     {
         private FormMenuPrincipal formAnterior;
-
         private List<Producto> productos = new List<Producto>();
 
-        private List<String> categorias = new List<String> { "Frutas y verduras","Carnes y embutidos", "Bebidas",
-        "Cereales y productos secos", "Detergentes y jabones","Desinfectantes","Champús y acondicionadores","Desodorantes"};
+        private List<string> categorias = new List<string>();
 
         private string productosCSV = "productos.csv";
         private string encabezado = "Codigo;Nombre;Categoria;Cantidad;Precio";
@@ -22,8 +20,7 @@ namespace Capa_Presentacion
         {
             InitializeComponent();
             this.formAnterior = anterior;
-            var gestor = new GestionProducto();
-            gestor.CargarProductos(productosCSV, encabezado, productos);
+            archivo.CargarProductos(productosCSV, encabezado, productos);
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = productos;
             FormGestionProductos_Load(this, EventArgs.Empty);
@@ -56,7 +53,7 @@ namespace Capa_Presentacion
         {
             // Cargar productos desde archivo si es necesario
             archivo.CargarProductos(productosCSV, encabezado, productos);
-
+            categorias = archivo.CargarCategorias();
             // Llenar ComboBox de editar
             cmbEditar.DataSource = null;
             cmbEditar.DataSource = productos;
@@ -74,9 +71,11 @@ namespace Capa_Presentacion
             dataGridView1.DataSource = productos;
 
             // Lita de Categorias
+            CargarCategoriasEnUI(categorias);
+            /*
             cmbCategorias.DataSource = null;
             cmbCategorias.DataSource = categorias;
-            cmbCategorias2.DataSource = categorias;
+            cmbCategorias2.DataSource = categorias;*/
         }
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
@@ -222,7 +221,7 @@ namespace Capa_Presentacion
                 dataGridView1.DataSource = null;
                 dataGridView1.DataSource = productos;
                 txtNombreEditar.Text = "";
-                txtCategoriaEditar.Text = "";
+                
                 txtCantidadEditar.Text = "";
                 txtPrecioEditar.Text = "";
 
@@ -288,7 +287,7 @@ namespace Capa_Presentacion
             if (cmbEditar.SelectedItem is Producto productoSeleccionado)
             {
                 txtNombreEditar.Text = productoSeleccionado.NombreProducto;
-               // txtCategoriaEditar.Text = productoSeleccionado.CategoriaProducto;
+                // txtCategoriaEditar.Text = productoSeleccionado.CategoriaProducto;
                 txtCantidadEditar.Text = productoSeleccionado.CantidadProducto.ToString();
                 txtPrecioEditar.Text = productoSeleccionado.PrecioProducto.ToString("F2"); // Formato con 2 decimales, opcional
             }
@@ -297,6 +296,23 @@ namespace Capa_Presentacion
         private void txtCodigo_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnAddCategoria_Click(object sender, EventArgs e)
+        {
+            FormNewCategoria ventanaCategoria = new FormNewCategoria(this);
+            ventanaCategoria.CategoriasActualizadas += cats =>
+            {
+                categorias = cats;
+                CargarCategoriasEnUI(categorias);
+            };
+            ventanaCategoria.Show(this);
+        }
+        private void CargarCategoriasEnUI(List<string> categorias)
+        {
+            cmbCategorias.DataSource = null;              // Limpia la lista actual
+            cmbCategorias.DataSource = categorias;        // Asigna la nueva
+            cmbCategorias2.DataSource = categorias;
         }
     }
 
