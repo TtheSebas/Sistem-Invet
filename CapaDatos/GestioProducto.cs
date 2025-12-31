@@ -37,6 +37,7 @@ namespace Datos
                     }
                 }
             }
+            //solo dios y yo sabemos como se logro poner en marcha este codigo !!!SUERTE CON EL PROXIMO ENCARGADO!!!
             catch (IOException e)
             {
                 throw new Exception("Error al leer el archivo" + e.Message);
