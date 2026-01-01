@@ -37,7 +37,6 @@ namespace Datos
                     }
                 }
             }
-            //solo dios y yo sabemos como se logro poner en marcha este codigo !!!SUERTE CON EL PROXIMO ENCARGADO!!!
             catch (IOException e)
             {
                 throw new Exception("Error al leer el archivo" + e.Message);
@@ -166,3 +165,6 @@ namespace Datos
         }
     }
 }
+
+/*Para aquel que tenga el relebo para el mantenimiento de este codigo o su refactorizacion le deseo suerte ya que hay muchas cosas aqui que ni yo entiendo pero 
+funciona, para ti personita detraz del computador te deseo lo mejor en todos tus proyectos y lo que tengas en mente :) */
